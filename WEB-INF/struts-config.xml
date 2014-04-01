@@ -1,0 +1,450 @@
+<?xml version="1.0" encoding="Windows-31J" ?>
+
+<!DOCTYPE struts-config PUBLIC
+          "-//Apache Software Foundation//DTD Struts Configuration 1.2//EN"
+          "http://jakarta.apache.org/struts/dtds/struts-config_1_2.dtd">
+
+
+<struts-config>
+
+<!-- ============================================ Data Source Configuration -->
+
+<!-- ================================================ Form Bean Definitions -->
+    <form-beans>
+		<!-- ログインActionForm -->
+		<form-bean name="admin_loginForm" type="admin.LoginForm" />
+		<form-bean name="user_UserLoginForm" type="user.UserLoginForm" />
+		<form-bean name="user_UserInfoForm" type="user.UserInfoForm" />
+		<form-bean name="user_KuchikomiForm" type="user.KuchikomiForm" />
+		<form-bean name="admin_search_RoomCreate" type="admin_search.RoomCreateForm" />
+		<form-bean name="admin_search_SearchForm" type="admin_search.SearchForm" />
+		<form-bean name="admin_search_UpdateForm" type="admin_search.UpdateForm" />
+		<form-bean name="admin_usermanager_UserDelForm" type="admin_usermanager.UserDelForm" />
+		<form-bean name="admin_adminmanager_AdminCreate" type="admin_adminmanager.AdminCreateForm" />
+		<form-bean name="admin_adminmanager_AdminUpdate" type="admin_adminmanager.AdminUpdateForm" />
+		<form-bean name="admin_kuchikomi_KuchikomiForm" type="admin_kuchikomi.KuchikomiForm" />
+    </form-beans>
+
+
+<!-- ========================================= Global Exception Definitions -->
+    <global-exceptions>
+
+    </global-exceptions>
+
+<!-- =========================================== Global Forward Definitions -->
+    <global-forwards>
+
+    </global-forwards>
+
+
+<!-- =========================================== Action Mapping Definitions -->
+    <action-mappings>
+		<!-- 管理者ログイン用Action -->
+		<action path="/admin/login"
+    				 type="admin.LoginAction"
+    				 name="admin_loginForm"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/admin/login.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/admin/menu.jsp" />
+    	</action>
+
+	<!-- 管理者ログイン用validate 出力側 -->
+			<action path="/admin/outuserlogin"
+						type="org.apache.struts.actions.ForwardAction"
+						parameter="/admin/login.do"
+						name="admin_loginForm"
+						scope="session"
+						validate="true"
+						input="/web/admin/login.jsp"/>
+
+    	<!--管理者空き部屋登録確認用Action -->
+    	<action path="/admin_search/roomcreate"
+    				 type="admin_search.RoomCreate"
+    				 name="admin_search_RoomCreate"
+    				 scope="session"
+    				 input="/web/admin/room/room_create.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/admin/room/create_check.jsp" />
+			<forward name="failure" path="/WEB-INF/jsp/admin/room/create_check.jsp" />
+			<forward name="error" path="/WEB-INF/jsp/admin/room/create_check_error.jsp" />
+    	</action>
+    	<!-- 管理者空き部屋登録確認用validate 出力側 -->
+<!-- 			<action path="/admin_search/outroomcreate" -->
+<!-- 						type="org.apache.struts.actions.ForwardAction" -->
+<!-- 						parameter="/admin_search/roomcreate.do" -->
+<!-- 						name="admin_search_RoomCreate" -->
+<!-- 						scope="session" -->
+<!-- 						validate="true" -->
+<!-- 						input="/web/admin/room/room_create.jsp"/> -->
+
+    	<!-- 管理者空き部屋登録完了用Action -->
+    	<action path="/admin_search/roomregist"
+    				 type="admin_search.RoomRegist"
+    				 name="admin_search_RoomCreate"
+    				 scope="session">
+    		<forward name="success" path="/WEB-INF/jsp/admin/room/room_regist_success.jsp" />
+    	</action>
+
+    	<!-- 管理者登録用Action -->
+    	<action path="/admin_adminmanager/AdminCreate"
+    				 type="admin_adminmanager.AdminCreateAction"
+    				 name="admin_adminmanager_AdminCreate"
+    				 scope="session"
+    				 input="/web/admin/admin/admin_create.jsp">
+    				<!--  input="/web/admin/admin/admin_create.jsp"> -->
+    		<forward name="success" path="/web/admin/admin/create_check.jsp" />
+    		<forward name="find" path="/web/admin/admin/search_success.jsp" />
+    		<forward name="error" path="/web/admin/admin/admin_create_error.jsp" />
+    	</action>
+
+		<!-- 管理者登録用validate 出力側 -->
+<!-- 			<action path="/admin_adminmanager/outAdminCreate" -->
+<!-- 						type="org.apache.struts.actions.ForwardAction" -->
+<!-- 						parameter="/admin_adminmanager/AdminCreate.do" -->
+<!-- 						name="admin_adminmanager_AdminCreate" -->
+<!-- 						scope="session" -->
+<!-- 						validate="true" -->
+<!-- 						input="/web/admin/admin/admin_create.jsp"/> -->
+
+    	<!-- 管理者登録確認用Action -->
+    	<action path="/admin_adminmanager/AdminCreateConfirm"
+    				 type="admin_adminmanager.AdminCreateConfirmAction"
+    				 name="admin_adminmanager_AdminCreate"
+    				 scope="session"
+    				 input="/web/admin/admin/admin_create.jsp">
+    		<forward name="success" path="/web/admin/admin/create_success.jsp" />
+    		<forward name="failuer" path="/web/admin/admin/admin_create.jsp" />
+    	</action>
+
+    	<!-- 管理者削除確認用Action -->
+    	<action path="/admin_adminmanager/deletecheck"
+    				 type="admin_adminmanager.AdminDeleteAction"
+    				 name="admin_adminmanager_AdminCreate"
+    				 scope="request"
+    				 input="/web/admin/admin/admin_create.jsp">
+    		<forward name="success" path="/web/admin/admin/admin_delete.jsp" />
+    		<forward name="failuer" path="/web/admin/admin/search_success.jsp" />
+    	</action>
+
+    	<!-- 管理者削除用Action -->
+    	<action path="/admin_adminmanager/delete"
+    				 type="admin_adminmanager.AdminDeleteAction"
+    				 name="admin_adminmanager_AdminCreate"
+    				 scope="request"
+    				 input="/web/admin/admin/admin_create.jsp">
+    		<forward name="success" path="/web/admin/admin/delete_success.jsp" />
+    		<forward name="failuer" path="/web/admin/admin/search_success.jsp" />
+    	</action>
+
+    	<!-- 管理者編集用Action -->
+    	<action path="/admin_adminmanager/update"
+    				 type="admin_adminmanager.AdminUpdateAction"
+    				 name="admin_adminmanager_AdminCreate"
+    				 scope="session"
+    				 input="/web/admin/admin/admin_create.jsp">
+    		<forward name="success" path="/web/admin/admin/admin_update.jsp" />
+    		<forward name="failuer" path="/web/admin/admin/search_success.jsp" />
+    	</action>
+
+    	<!-- 管理者編集確認用Action -->
+    	<action path="/admin_adminmanager/updatecheck"
+    				 type="admin_adminmanager.AdminUpdateAction"
+    				 name="admin_adminmanager_AdminUpdate"
+    				 scope="session"
+    				 input="/web/admin/admin/admin_update.jsp">
+    		<forward name="success" path="/web/admin/admin/admin_update.jsp" />
+    		<forward name="check" path="/web/admin/admin/update_check.jsp" />
+    		<forward name="update" path="/web/admin/admin/admin_menu.jsp" />
+    		<forward name="failuer" path="/web/admin/admin/search_success.jsp" />
+    	</action>
+
+		<!-- 利用者ログイン用Action -->
+    	<action path="/user/userlogin"
+    				 type="user.UserLoginAction"
+    				 name="user_UserLoginForm"
+    				 scope="session"
+    				 input="/web/user/login.jsp">
+    		<forward name="usertop" path="/web/user/usertop.jsp" />
+    		<forward name="kuchikomi" path="/web/user/kuchikomicreate.jsp" />
+    	</action>
+
+    	<!-- 利用者情報取得用Action -->
+    	<action path="/user/userinput"
+    				 type="user.MypageAction"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/user/hensyu.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/user/hensyu.jsp" />
+    	</action>
+
+    	<!-- 利用者情報編集確認Action -->
+    	<action path="/user/hensyu"
+    				 type="user.HensyuAction"
+    				 name="user_UserInfoForm"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/user/hensyu.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/user/hensyu_kakunin.jsp" />
+    	</action>
+
+    	<!-- 利用者情報編集登録Action -->
+    	<action path="/user/hensyu_kakunin"
+    				 type="user.Hensyu_kakuninAction"
+    				 name="user_UserInfoForm"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/user/hensyu_kakunin.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/user/hensyu_kanryo.jsp" />
+    	</action>
+
+    	<!-- 利用者情報logoutAction -->
+    	<action path="/user/UserLogout"
+    				 type="user.UserLogoutAction"
+    				 scope="session"
+    				 input="/web/user/usertop.jsp">
+    		<forward name="success" path="/web/user/usertop.jsp" />
+    	</action>
+
+    	<!-- 利用者情報削除確認Action -->
+    	<action path="/user/userdeletekanryo"
+    				 type="user.UserDeleteKakuninAction"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/user/userdelete_kakunin.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/user/userdelete_kanryo.jsp" />
+    	</action>
+
+    	<!-- 利用者情報削除Action -->
+    	<action path="/user/userdelete"
+    				 type="user.UserDeleteAction"
+    				 scope="session"
+    				 input="/web/user/mypage.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/user/userdelete_kakunin.jsp" />
+    	</action>
+
+		<!-- 利用者登録用Action -->
+    	<action path="/user/usercreate_action"
+    				 type="user.UserInfoCreateAction"
+    				 name="user_UserInfoForm"
+    				 scope="session"
+    				 input="/web/user/usercreate.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/user/usercreateconfirm.jsp" />
+    		<forward name="failuer" path="/web/user/usercreate.jsp" />
+    	</action>
+
+		<!-- 利用者登録確認用Action -->
+    	<action path="/user/usercreateconfirm"
+    				 type="user.UserInfoCreateConfirmAction"
+    				 name="user_UserInfoForm"
+    				 scope="session"
+    				 input="/web/user/usercreate.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/user/usersuccess.jsp" />
+    	</action>
+
+<!--     	空室検索結果用(利用者側)Action -->
+    	<action path="/user/search"
+    				 type="user.UserSearchAction"
+    				 name="admin_search_SearchForm"
+    				 scope="session"
+    				 input="/web/user/usertop.jsp">
+    		<forward name="success" path="/web/user/search_success.jsp" />
+    	</action>
+
+    	    	<!-- 物件詳細用(利用者側)Action -->
+    	<action path="/user/show"
+    				 type="user.UserShowAction"
+    				 name="admin_search_SearchForm"
+    				 scope="request"
+    				 input="/web/user/search_success.jsp">
+    		<forward name="usershow" path="/WEB-INF/jsp/user/userroom_show.jsp" />
+<!-- 			<forward name="usershow" path="/web/user/userroom_show.jsp" /> -->
+    	</action>
+
+		<!-- 空室検索結果用(管理者側)Action -->
+    	<action path="/admin_search/search"
+    				 type="admin_search.SearchAction"
+    				 name="admin_search_SearchForm"
+    				 scope="request"
+    				 input="/WEB-INF/jsp/room/room_menu.jsp">
+    		<forward name="success" path="/web/admin/room/search_success.jsp" />
+    	</action>
+
+    	<!-- 空室編集用Action -->
+    	<action path="/admin_search/update"
+    				 type="admin_search.UpdateAction"
+    				 name="admin_search_SearchForm"
+    				 scope="session"
+    				 input="/web/admin/room/search_success.jsp">
+    		<forward name="confirm" path="/WEB-INF/jsp/admin/room/room_update.jsp" />
+    		<forward name="check" path="/WEB-INF/jsp/admin/room/update_check.jsp" />
+    		<forward name="update" path="/WEB-INF/jsp/admin/room/room_show.jsp" />
+    	</action>
+
+    	<!-- 空室更新用Action -->
+    	<action path="/admin_search/update2"
+    				 type="admin_search.UpdateAction"
+    				 name="admin_search_UpdateForm"
+    				 scope="session"
+    				 input="/web/admin/room/search_success.jsp">
+    		<forward name="confirm" path="/WEB-INF/jsp/admin/room/room_update.jsp" />
+    		<forward name="check" path="/WEB-INF/jsp/admin/room/update_check.jsp" />
+    		<forward name="update" path="/WEB-INF/jsp/admin/room/room_show.jsp" />
+    	</action>
+
+    	<!-- 物件詳細用Action -->
+    	<action path="/admin_search/show"
+    				 type="admin_search.ShowAction"
+    				 name="admin_search_SearchForm"
+    				 scope="request"
+    				 input="/web/admin/room/search_success.jsp">
+    		<forward name="show" path="/WEB-INF/jsp/admin/room/room_show.jsp" />
+    	</action>
+
+		<!-- 口コミ登録用Action -->
+    	<action path="/user/kuchikomicreate"
+    				 type="user.KuchikomiCreateAction"
+    				 name="user_KuchikomiForm"
+    				 scope="session"
+    				 input="/web/user/kuchikomicreate.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/user/kuchikomicreateconfirm.jsp" />
+    	</action>
+
+		<!-- 口コミ登録用validate 出力側 -->
+		<action path="/user/outkuchikomicreate"
+					type="org.apache.struts.actions.ForwardAction"
+					parameter="/user/kuchikomicreate.do"
+					name="user_KuchikomiForm"
+					scope="session"
+					validate="true"
+					input="/web/user/kuchikomicreate.jsp"/>
+
+		<!-- 口コミ登録確認用Action -->
+    	<action path="/user/kuchikomicreateconfirm"
+    				 type="user.KuchikomiCreateConfirmAction"
+    				 name="user_KuchikomiForm"
+    				 scope="session"
+    				 input="/web/user/kuchikomicreate.jsp">
+<!--     				 仮の遷移先 -->
+    		<forward name="success" path="/web/user/testbukkenn.jsp" />
+    	</action>
+
+<!-- 			Validatorの設定 -->
+<!-- 			利用者登録画面 -->
+	<!-- 			入力側 -->
+			<action path="/user/usercreate"
+						type="org.apache.struts.actions.ForwardAction"
+						parameter="/web/user/usercreate.jsp"
+						scope="session"
+						/>
+	<!-- 			出力側 -->
+			<action path="/user/outusercreate"
+						type="org.apache.struts.actions.ForwardAction"
+						parameter="/user/usercreate_action.do"
+						name="user_UserInfoForm"
+						scope="session"
+						validate="true"
+						input="/web/user/usercreate.jsp"/>
+<!-- 			利用者ログイン画面 -->
+	<!-- 			入力側 -->
+			<action path="/user/inuserlogin"
+						type="org.apache.struts.actions.ForwardAction"
+						parameter="/web/user/login.jsp"
+						scope="session"
+						/>
+	<!-- 			出力側 -->
+			<action path="/user/outuserlogin"
+						type="org.apache.struts.actions.ForwardAction"
+						parameter="/user/userlogin.do"
+						name="user_UserLoginForm"
+						scope="session"
+						validate="true"
+						input="/web/user/login.jsp"/>
+
+    	<!-- 削除確認用Action -->
+    	<action path="/admin_search/check"
+    				 type="admin_search.DeleteAction"
+    				 name="admin_search_SearchForm"
+    				 scope="request"
+    				 input="/web/admin/room/search_success.jsp">
+    		<forward name="check" path="/web/admin/room/room_delete.jsp" />
+    		<forward name="success" path="/web/admin/room/room_delete.jsp" />
+    	</action>
+
+    	<!-- 削除用Action -->
+    	<action path="/admin_search/delete"
+    				 type="admin_search.DeleteAction"
+    				 name="admin_search_SearchForm"
+    				 scope="request"
+    				 input="/web/admin/room/search_success.jsp">
+    		<forward name="delete" path="/web/admin/room/search_success.jsp" />
+    		<forward name="check" path="/web/admin/room/room_delete.jsp" />
+    		<forward name="success" path="/web/admin/room/room_delete.jsp" />
+    	</action>
+
+		<!-- 管理者側ユーザー削除 -->
+		<action path="/admin_usermanager/usermanager"
+    				 type="admin_usermanager.UserManager"
+    				 name="admin_usermanager_UserDelForm"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/admin/login.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/admin/user/userdelete_kakunin.jsp" />
+    		<forward name="failure" path="/WEB-INF/jsp/admin/user/user_del_failure.jsp" />
+    	</action>
+
+    	<!-- 管理者側ユーザー削除 -->
+		<action path="/admin_usermanager/usedelete"
+    				 type="admin_usermanager.UserDelete"
+    				 name="admin_usermanager_UserDelForm"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/admin/login.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/admin/user/user_del_success.jsp" />
+    		</action>
+
+    	<!-- 管理者側口コミ削除 -->
+		<action path="/admin_kuchikomi/kuchikomimanager"
+    				 type="admin_kuchikomi.KuchikomiManager"
+    				 name="admin_kuchikomi_KuchikomiForm"
+    				 scope="session"
+    				 input="/web/admin/kuchikomi/kuchikomi_menu.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/admin/kuchikomi/kuchikomi_show.jsp" />
+    		<forward name="failure" path="/WEB-INF/jsp/admin/kuchikomi/kuchikomi_del_failure.jsp" />
+    	</action>
+
+    	<!-- 管理者側口コミ削除 -->
+		<action path="/admin_kuchikomi/kuchikomiconfirmation"
+    				 type="admin_kuchikomi.KuchikomiConfirmation"
+    				 name="admin_kuchikomi_KuchikomiForm"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/admin/login.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/admin/kuchikomi/kuchikomi_kakunin.jsp" />
+    	</action>
+
+    	<!-- 管理者側口コミ削除 -->
+		<action path="/admin_kuchikomi/kuchikomidelete"
+    				 type="admin_kuchikomi.KuchikomiDelete"
+    				 name="admin_kuchikomi_KuchikomiForm"
+    				 scope="session"
+    				 input="/WEB-INF/jsp/admin/login.jsp">
+    		<forward name="success" path="/WEB-INF/jsp/admin/kuchikomi/kuchikomi_del_success.jsp" />
+    	</action>
+
+    	<!-- 	管理者logoutAction -->
+    	<action path="/admin/adminlogout"
+    				 type="admin.AdminLogoutAction"
+    				 scope="session"
+    				 input="/web/admin/login.jsp">
+    		<forward name="success" path="/web/admin/login.jsp" />
+    	</action>
+
+    </action-mappings>
+
+<!-- ============================================= Controller Configuration -->
+
+<!-- ======================================== Message Resources Definitions -->
+	<message-resources parameter="admin_search.Messages"/>
+<!-- =============================================== Plug Ins Configuration -->
+
+  <!-- ======================================================= Tiles plugin -->
+
+  <!-- =================================================== Validator plugin -->
+<plug-in className="org.apache.struts.validator.ValidatorPlugIn">
+	<set-property property="pathnames"
+							value="/WEB-INF/validator-rules.xml,
+										/WEB-INF/validation.xml"/>
+</plug-in>
+</struts-config>

@@ -1,0 +1,272 @@
+<?xml version="1.0" encoding="Shift_JIS"?>
+<!DOCTYPE form-validation PUBLIC
+          "-//Apache Software Foundation//DTD Commons Validator Rules Configuration 1.1.3//EN"
+          "http://jakarta.apache.org/commons/dtds/validator_1_1_3.dtd">
+<form-validation>
+	<formset>
+	<!--  chap07_sampleValidatorForm（テスト用） -->
+		<form name="chap07_sampleValidatorForm">
+			<field property="name"
+					  depends="required">
+				<msg name="required" key="errors.empty"/>
+				<arg name="required" key="string.name" position="0"/>
+			</field>
+			<field property="zip"
+					 depends="required,mask">
+				 <arg name="mask" key="string.zip" position="0"/>
+				 <arg name="required" key="string.zip" position="0"/>
+				<var>
+					<var-name>mask</var-name>
+					<var-value>^\d{3}(-\d{4})?$</var-value>
+				</var>
+			</field>
+<!-- 			<field property="integersmp" -->
+<!-- 					 depends="required,integer"> -->
+<!-- 				 <arg name="required" key="string.number" position="0"/> -->
+<!-- 				 <arg name="integer" key="string.number" position="0"/> -->
+<!-- 		 	</field> -->
+		 	<field property="integerRangeSample"
+		 			depends="required,intRange">
+				<msg name="required" key="errors.empty"/>
+	 			<arg name="required" key="string.number" position="0"/>
+	 			<msg name="integer" key="errors.required"/>
+	 			<arg name="integer" key="string.number" position="0"/>
+				<arg name="intRange" key="${var:min}" position="0" resource="false"/>
+<!-- 	 			<arg name="intRange" key="string.min" position="0"/> -->
+				<arg name="intRange" key="${var:max}" position="1" resource="false"/>
+<!-- 	 			<arg name="intRange" key="string.max" position="1"/> -->
+	 			<var>
+	 				<var-name>min</var-name>
+	 				<var-value>1</var-value>
+	 			</var>
+	 			<var>
+	 				<var-name>max</var-name>
+	 				<var-value>10</var-value>
+	 			</var>
+		 	</field>
+		</form>
+	<!--  user_UserInfoForm -->
+		<form name="user_UserInfoForm">
+		<field property="loginid" depends="required,maxlength">
+				<msg name="required" key="errors.empty"/>
+				<arg name="required" key="string.loginid" position="0"/>
+				<msg name="maxlength" key="errors.maxlength"/>
+				<arg name="maxlength" key="string.loginid" position="0"/>
+	 			<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+	 			<var>
+	 				<var-name>maxlength</var-name>
+	 				<var-value>10</var-value>
+	 			</var>
+		</field>
+		<field property="password" depends="required,maxlength">
+				<msg name="required" key="errors.empty"/>
+				<arg name="required" key="string.password" position="0"/>
+				<msg name="maxlength" key="errors.maxlength"/>
+				<arg name="maxlength" key="string.password" position="0"/>
+				<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+	 			<var>
+	 				<var-name>maxlength</var-name>
+	 				<var-value>10</var-value>
+	 			</var>
+		</field>
+		<field property="mail"
+					  depends="required,email">
+				<msg name="required" key="errors.empty"/>
+				<arg name="required" key="string.email" position="0"/>
+				<msg name="email" key="errors.email"/>
+				<arg name="email" key="string.email" position="0"/>
+			</field>
+		</form>
+	<!--  user_UserLoginForm -->
+		<form name="user_UserLoginForm">
+			<field property="id" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.loginid" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.loginid" position="0"/>
+		 			<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>10</var-value>
+		 			</var>
+			</field>
+			<field property="password" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.password" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.password" position="0"/>
+					<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>10</var-value>
+		 			</var>
+			</field>
+		</form>
+		<!-- 口コミ用の設定 -->
+		<form name="user_KuchikomiForm">
+			<field property="kuchikomi" depends="required,maxlength">
+					<msg name="required" key="errors.kuchikomi"/>
+<!-- 					<arg name="required" key="string.password" position="0"/> -->
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.kuchikomi" position="0"/>
+					<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>200</var-value>
+		 			</var>
+			</field>
+		</form>
+
+		<!--  admin_LoginForm -->
+		<form name="admin_loginForm">
+			<field property="id" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.loginid" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.loginid" position="0"/>
+		 			<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>10</var-value>
+		 			</var>
+			</field>
+			<field property="password" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.password" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.password" position="0"/>
+					<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>10</var-value>
+		 			</var>
+			</field>
+		</form>
+
+		<!--  admin_adminmanager_AdminCreate -->
+		<form name="admin_adminmanager_AdminCreate">
+			<field property="loginid" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.loginid" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.loginid" position="0"/>
+		 			<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>10</var-value>
+		 			</var>
+			</field>
+			<field property="staffNo" depends="required,integer,intRange">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.staffno" position="0"/>
+					<msg name="integer" key="errors.required"/>
+	 				<arg name="integer" key="string.number" position="0"/>
+	 				<msg name="intRange" key="errors.intRange"/>
+					<arg name="intRange"  key="string.staffno" position="0" />
+					<arg name="intRange"  key="string.staffno" position="0"  />
+		 			<var>
+		 				<var-name>min</var-name>
+		 				<var-value>1</var-value>
+		 			</var>
+		 			<var>
+		 				<var-name>max</var-name>
+		 				<var-value>2000000000</var-value>
+		 			</var>
+			</field>
+			<field property="password" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.password" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.password" position="0"/>
+					<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>10</var-value>
+		 			</var>
+			</field>
+		</form>
+
+		<!--  admin_search_RoomCreate 管理者側空き部屋登録 -->
+		<form name="admin_search_RoomCreate">
+			<field property="code" depends="required,integer,intRange">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.code" position="0"/>
+					<msg name="integer" key="errors.required"/>
+	 				<arg name="integer" key="string.number" position="0"/>
+	 				<msg name="intRange" key="errors.intRange" />
+					<arg name="intRange" key="string.code" position="0"/>
+					<arg name="intRange" key="string.code"  position="0"/>
+		 			<var>
+		 				<var-name>min</var-name>
+		 				<var-value>1</var-value>
+		 			</var>
+		 			<var>
+		 				<var-name>max</var-name>
+		 				<var-value>2000000000</var-value>
+		 			</var>
+			</field>
+			<field property="name" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.name" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.name" position="0"/>
+					<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>100</var-value>
+		 			</var>
+			</field>
+			<field property="text" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.test" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.text" position="0"/>
+					<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>500</var-value>
+		 			</var>
+			</field>
+			<field property="price" depends="required,integer,intRange">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.price" position="0"/>
+					<msg name="integer" key="errors.required"/>
+	 				<arg name="integer" key="string.number" position="0"/>
+	 				<msg name="intRange" key="errors.intRange" />
+					<arg name="intRange" key="string.price" position="0"/>
+					<arg name="intRange" key="string.price"  position="0"/>
+		 			<var>
+		 				<var-name>min</var-name>
+		 				<var-value>1</var-value>
+		 			</var>
+		 			<var>
+		 				<var-name>max</var-name>
+		 				<var-value>2000000000</var-value>
+		 			</var>
+			</field>
+			<field property="address" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.address" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.address" position="0"/>
+					<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>100</var-value>
+		 			</var>
+			</field>
+			<field property="station" depends="required,maxlength">
+					<msg name="required" key="errors.empty"/>
+					<arg name="required" key="string.station" position="0"/>
+					<msg name="maxlength" key="errors.maxlength"/>
+					<arg name="maxlength" key="string.station" position="0"/>
+					<arg name="maxlength" key="${var:maxlength}" position="1" resource="false"/>
+		 			<var>
+		 				<var-name>maxlength</var-name>
+		 				<var-value>30</var-value>
+		 			</var>
+			</field>
+		</form>
+
+	</formset>
+</form-validation>

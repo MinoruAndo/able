@@ -1,0 +1,63 @@
+@CHARSET "UTF-8"
+
+/*基本*/
+h2,h3,h4,h5{
+		padding: 0.2em;
+		margin: 0;
+}
+/*表示関係*/
+.center{text-align: center}
+.right{text-align: right}
+.resizeimage img { width: auto; }
+
+body{
+	background-color:#dcdcdc;
+	width:780px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0;
+}
+
+#header{
+	background-image: url("/able/web/image/able.gif");
+	width:780px;
+	height:200px;
+	margin-left: auto;
+	margin-right: auto;
+	padding: 0;
+
+/* 	background-size:cover; */
+}
+
+#footer{
+		background-color: #006400;
+		color:white;
+		width:780px;
+		padding: 0;
+		margin: 0;
+		margin-left: auto;
+	    margin-right: auto;
+
+
+}
+/* テーブル関連 */
+table{
+	border-width:1px;
+	border-color:black;
+	border-style:solid;
+	margin-left: auto;
+	margin-right: auto;
+	margin-top: 0.5em;
+	margin-bottom: 0.5em;
+}
+table th,td{
+	border-width:1px;
+	border-color:black;
+	border-style:solid;
+	padding:  0.5em;
+	margin: 0;
+}
+.table-midashi{
+	background-color:black;
+	color:white;
+}
